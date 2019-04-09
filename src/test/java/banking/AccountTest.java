@@ -5,14 +5,23 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 public class AccountTest {
-
+    private double balance;
     @Test
     public void Account() {
+        this.balance = 0;
     }
 
     @Test
-    public void deposit() {
-    }
+    public void deposit(double amount) {
+        if (amount<0){
+            System.out.println("Invalid amount");
+        }
+            else
+            {
+               balance = balance+amount;
+            }
+        }
+    
 
     @Test
     public void withdraw() {
