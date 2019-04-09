@@ -24,7 +24,16 @@ public class AccountTest {
     
 
     @Test
-    public void withdraw() {
+    public void withdraw(double withdrawAmount) {
+        if (balance > 0){
+            if (balance < withdrawAmount)
+                System.out.println("Insufficient funds");
+        }
+        else 
+        {
+             balance = balance - withdrawAmount;
+             System.out.println("Withdrawal successful");   
+        }
     }
 
     @Test
