@@ -79,4 +79,33 @@ public class BankingTestSuite {
         assertEquals("Check Amount Double", expectedAmountDouble, actualAmountDouble);
         assertEquals("Check Description String", expectedDescriptionString, actualDescriptionString);
     }
+
+    @Test
+    public final void testTransactionClassConstructorNegativeAmount(){
+        Transaction returnedObject;
+
+        TransactionType expectedTransactionType = TransactionType.CHECK;
+        TransactionType actualTransactionType = null;
+
+        Double expectedAmountDouble = -10d;
+        Double actualAmountDouble = null;
+
+        String expectedDescriptionString = "TEST, NOT A REAL TRANSACTION";
+        String actualDescriptionString = null;
+
+        try{
+            //Calling the method that is being tested
+            returnedObject = new Transaction(expectedTransactionType,expectedAmountDouble,expectedDescriptionString);
+            actualTransactionType = returnedObject.getType();
+            actualAmountDouble = returnedObject.getAmount();
+            actualDescriptionString = returnedObject.getDescription();
+        }
+        catch (RuntimeException e){
+            returnedObject = null;
+        }
+        assertNotNull("Created object should exist", returnedObject);
+        assertEquals("Check Transaction Type", expectedTransactionType, actualTransactionType);
+        assertEquals("Check Amount Double", expectedAmountDouble, actualAmountDouble);
+        assertEquals("Check Description String", expectedDescriptionString, actualDescriptionString);
+    }
 }
