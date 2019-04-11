@@ -167,6 +167,33 @@ public class BankingTestSuite {
     }
 
     /**
+     * This will test that the transaction constructor throws a IllegalArgumentException when passed a empty String for Description
+     */
+    @Test
+    public final void testTransactionClassConstructorEmptyString(){
+        Transaction returnedObject;
+
+        TransactionType testTransactionType = TransactionType.CHECK;
+
+        Double testAmountDouble = 10d;
+
+        String passedEmptyDescriptionString = "";
+        String returnedDescriptionString;
+
+        try{
+            returnedObject = new Transaction(testTransactionType,testAmountDouble,passedEmptyDescriptionString);
+            returnedDescriptionString = returnedObject.getDescription();
+            fail("Should throw IllegalArgumentException, but somehow was successful and set description to " + returnedDescriptionString);
+        }
+        catch (IllegalArgumentException e){
+            //Pass, this should happen
+        }
+        catch (RuntimeException e){
+            fail("Should throw IllegalArgumentException, but threw " + e);
+        }
+    }
+
+    /**
      * This will test that the transaction constructor throws a IllegalArgumentException when passed nulls
      */
     @Test
