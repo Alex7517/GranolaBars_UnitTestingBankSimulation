@@ -2,13 +2,10 @@ package banking;
 
 import org.junit.Test;
 
-import java.util.Arrays;
-
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.*;
 
 /**
- * This class will contain all the test methods that we will be making for the banking program
+ * This class will contain all the test methods that we will be making for the banking program using JUnit 4
  *
  */
 public class BankingTestSuite {
@@ -128,7 +125,6 @@ public class BankingTestSuite {
         String actualDescriptionString = null;
 
         try{
-            //Calling the method that is being tested
             returnedObject = new Transaction(expectedTransactionType,expectedAmountDouble,expectedDescriptionString);
             actualTransactionType = returnedObject.getType();
             actualAmountDouble = returnedObject.getAmount();
@@ -141,5 +137,23 @@ public class BankingTestSuite {
         assertEquals("Check Transaction Type", expectedTransactionType, actualTransactionType);
         assertEquals("Check Amount Double", expectedAmountDouble, actualAmountDouble);
         assertEquals("Check Description String", expectedDescriptionString, actualDescriptionString);
+    }
+
+    /**
+     * This will test that the transaction constructor throws a IllegalArgumentException when passed nulls
+     */
+    @Test
+    public final void testTransactionClassConstructorNulls(){
+        Double passedDoubleNull = null;
+        try{
+            new Transaction(null,passedDoubleNull,null);
+            fail("Should throw IllegalArgumentException, but somehow was successful");
+        }
+        catch (IllegalArgumentException e){
+            //Pass
+        }
+        catch (RuntimeException e){
+            fail("Should throw IllegalArgumentException, but threw " + e);
+        }
     }
 }
