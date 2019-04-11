@@ -5,6 +5,7 @@ import org.junit.Test;
 import java.util.Arrays;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
 /**
  * This class will contain all the test methods that we will be making for the banking program
@@ -34,7 +35,7 @@ public class BankingTestSuite {
             actualResult = "Passed";
         }
         catch (RuntimeException e){
-            //If the tested method throws an error, we will catch is as set it to actualResult, so that it will fail the test
+            //If the tested method throws an error, we will catch it and set it to actualResult, so that it will fail the test
             actualResult = e.toString();
         }
         //This is the Junit part, were we will compare the values, and if they are the same the test passes
@@ -47,4 +48,35 @@ public class BankingTestSuite {
 
     //Transaction Class Tests
 
+    /**
+     * This will test that the transaction constructor properly creates a object with valid passed arguments
+     */
+    @Test
+    public final void testTransactionClassConstructorStandard(){
+        Transaction returnedObject;
+
+        TransactionType expectedTransactionType = TransactionType.CHECK;
+        TransactionType actualTransactionType = null;
+
+        Double expectedAmountDouble = 10d;
+        Double actualAmountDouble = null;
+
+        String expectedDescriptionString = "TEST, NOT A REAL TRANSACTION";
+        String actualDescriptionString = null;
+
+        try{
+            //Calling the method that is being tested
+            returnedObject = new Transaction(expectedTransactionType,expectedAmountDouble,expectedDescriptionString);
+            actualTransactionType = returnedObject.getType();
+            actualAmountDouble = returnedObject.getAmount();
+            actualDescriptionString = returnedObject.getDescription();
+        }
+        catch (RuntimeException e){
+            returnedObject = null;
+        }
+        assertNotNull("Created object should exist", returnedObject);
+        assertEquals("Check Transaction Type", expectedTransactionType, actualTransactionType);
+        assertEquals("Check Amount Double", expectedAmountDouble, actualAmountDouble);
+        assertEquals("Check Description String", expectedDescriptionString, actualDescriptionString);
+    }
 }
