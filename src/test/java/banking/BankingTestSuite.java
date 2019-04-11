@@ -140,6 +140,76 @@ public class BankingTestSuite {
     }
 
     /**
+     * This will test that the transaction constructor properly creates a object with a Massive Amount passed
+     */
+    @Test
+    public final void testTransactionClassConstructorBigAmount(){
+        Transaction returnedObject;
+
+        TransactionType passedTransactionType = TransactionType.CHECK;
+
+        Double expectedAmountDouble = Double.MAX_VALUE;
+        Double actualAmountDouble = null;
+
+        String passedDescriptionString = "TEST, NOT A REAL TRANSACTION";
+
+        try{
+            returnedObject = new Transaction(passedTransactionType,expectedAmountDouble,passedDescriptionString);
+            actualAmountDouble = returnedObject.getAmount();
+        }
+        catch (RuntimeException e){
+        }
+        assertEquals("Check Amount Double", expectedAmountDouble, actualAmountDouble);
+    }
+
+    /**
+     * This will test that the transaction constructor properly creates a object with a Massive Negative Amount passed
+     */
+    @Test
+    public final void testTransactionClassConstructorBigNegativeAmount(){
+        Transaction returnedObject;
+
+        TransactionType passedTransactionType = TransactionType.CHECK;
+
+        Double expectedAmountDouble = -Double.MAX_VALUE;
+        Double actualAmountDouble = null;
+
+        String passedDescriptionString = "TEST, NOT A REAL TRANSACTION";
+
+        try{
+            returnedObject = new Transaction(passedTransactionType,expectedAmountDouble,passedDescriptionString);
+            actualAmountDouble = returnedObject.getAmount();
+        }
+        catch (RuntimeException e){
+        }
+        assertEquals("Check Amount Double", expectedAmountDouble, actualAmountDouble);
+    }
+
+    /**
+     * This will test that the transaction constructor properly creates a object with a extremely small Amount passed
+     * !!!It could be passable that we will not want anything under a cent, if this is the case then this will need to be changed!!!
+     */
+    @Test
+    public final void testTransactionClassConstructorSmallAmount(){
+        Transaction returnedObject;
+
+        TransactionType passedTransactionType = TransactionType.CHECK;
+
+        Double expectedAmountDouble = Double.MIN_VALUE;
+        Double actualAmountDouble = null;
+
+        String passedDescriptionString = "TEST, NOT A REAL TRANSACTION";
+
+        try{
+            returnedObject = new Transaction(passedTransactionType,expectedAmountDouble,passedDescriptionString);
+            actualAmountDouble = returnedObject.getAmount();
+        }
+        catch (RuntimeException e){
+        }
+        assertEquals("Check Amount Double", expectedAmountDouble, actualAmountDouble);
+    }
+
+    /**
      * This will test that the transaction constructor throws a IllegalArgumentException when passed a zero for Amount
      */
     @Test
