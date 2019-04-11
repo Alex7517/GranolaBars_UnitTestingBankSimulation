@@ -80,6 +80,9 @@ public class BankingTestSuite {
         assertEquals("Check Description String", expectedDescriptionString, actualDescriptionString);
     }
 
+    /**
+     * This will test that the transaction constructor properly creates a object with a Negative Amount passed
+     */
     @Test
     public final void testTransactionClassConstructorNegativeAmount(){
         Transaction returnedObject;
