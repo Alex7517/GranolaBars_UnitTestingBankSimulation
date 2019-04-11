@@ -42,6 +42,37 @@ public class BankingTestSuite {
         assertEquals("Should run without throwing an error", expectedResult, actualResult);
     }
 
+    /**
+     * This will test that the Bank Classes addCustomer method properly creates adds a standard customer with the proper values
+     */
+    @Test
+    public final void testBankAddCustomerStandard(){
+        String returnedCustomerID;
+        Customer returnedCustomerObject;
+
+        String expectedFirstName = "TESTFirstName";
+        String actualFirstName;
+
+        String expectedLastName = "TESTLastName";
+        String actualLastName;
+
+        try{
+            Bank testBank = new Bank("Test Bank");
+            returnedCustomerID = testBank.addCustomer(expectedLastName,expectedFirstName);
+            returnedCustomerObject = testBank.getCustomer(returnedCustomerID);
+
+            actualFirstName = returnedCustomerObject.getFirstName();
+            actualLastName = returnedCustomerObject.getLastName();
+
+        }
+        catch (RuntimeException e){
+            actualFirstName = e.toString();
+            actualLastName = e.toString();
+        }
+        assertEquals("Check FirstName String", expectedFirstName, actualFirstName);
+        assertEquals("Check LastName String", expectedLastName, actualLastName);
+    }
+
     //Customer class Tests
 
     //SavingAccount class Tests, this will also be testing the Account class due to SavingAccount extending Account
