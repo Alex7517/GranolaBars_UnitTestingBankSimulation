@@ -140,6 +140,33 @@ public class BankingTestSuite {
     }
 
     /**
+     * This will test that the transaction constructor throws a IllegalArgumentException when passed a zero for Amount
+     */
+    @Test
+    public final void testTransactionClassConstructorZeroAmount(){
+        Transaction returnedObject;
+
+        TransactionType testTransactionType = TransactionType.CHECK;
+
+        Double passedZeroAmountDouble = 0d;
+        Double returnedAmountDouble;
+
+        String testDescriptionString = "TEST, NOT A REAL TRANSACTION";
+
+        try{
+            returnedObject = new Transaction(testTransactionType,passedZeroAmountDouble,testDescriptionString);
+            returnedAmountDouble = returnedObject.getAmount();
+            fail("Should throw IllegalArgumentException, but somehow was successful and set amount to " + returnedAmountDouble);
+        }
+        catch (IllegalArgumentException e){
+            //Pass, this should happen
+        }
+        catch (RuntimeException e){
+            fail("Should throw IllegalArgumentException, but threw " + e);
+        }
+    }
+
+    /**
      * This will test that the transaction constructor throws a IllegalArgumentException when passed nulls
      */
     @Test
@@ -150,7 +177,7 @@ public class BankingTestSuite {
             fail("Should throw IllegalArgumentException, but somehow was successful");
         }
         catch (IllegalArgumentException e){
-            //Pass
+            //Pass, this should happen
         }
         catch (RuntimeException e){
             fail("Should throw IllegalArgumentException, but threw " + e);
