@@ -109,6 +109,30 @@ public class BankingTestSuite {
     }
 
     /**
+     * This will test that the transaction constructor properly creates a object with all Transaction Types
+     */
+    @Test
+    public final void testTransactionClassConstructorTransactionTypes(){
+
+        for(TransactionType expectedTransactionType: TransactionType.values()){
+
+            Transaction returnedObject;
+            TransactionType actualTransactionType = null;
+            Double passedAmountDouble = 10d;
+            String passedDescriptionString = "TEST, NOT A REAL TRANSACTION";
+
+            try{
+                returnedObject = new Transaction(expectedTransactionType,passedAmountDouble,passedDescriptionString);
+                actualTransactionType = returnedObject.getType();
+            }
+            catch (RuntimeException e){
+                //Test failed, assert should detect this failure
+            }
+            assertEquals("Check Transaction Type", expectedTransactionType, actualTransactionType);
+        }
+    }
+
+    /**
      * This will test that the transaction constructor properly creates a object with a Negative Amount passed
      */
     @Test
@@ -187,7 +211,7 @@ public class BankingTestSuite {
 
     /**
      * This will test that the transaction constructor properly creates a object with a extremely small Amount passed
-     * !!!It could be passable that we will not want anything under a cent, if this is the case then this will need to be changed!!!
+     * !!!It could be that we will not want anything under a cent, if this is the case then this will need to be changed!!!
      */
     @Test
     public final void testTransactionClassConstructorSmallAmount(){
