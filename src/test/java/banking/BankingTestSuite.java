@@ -168,6 +168,28 @@ public void testCustomerAddSavingsAccount(){
         }
 }
 
+@Test
+    public void testCustomerAddSavingsAccountNull(){
+        Double initBal = null;
+        String description = null;
+        Bank bank = new Bank("TestBank");
+        Customer passedCust = new Customer(bank, "Test", "Johnny");
+        Customer returnedCustomer = null;
+
+        try{
+            passedCust.addSavingsAccount(initBal, description);
+            fail("Method should throw the IllegalArgumentException, but instead created an object still");
+        }
+        catch (IllegalArgumentException e){
+            //Passed the Test
+        }
+        catch (RuntimeException e){
+            fail("Method should throw the IllegalArgumentException, but threw "+ e);
+        }
+    }
+    
+    
+
     //SavingAccount class Tests, this will also be testing the Account class due to SavingAccount extending Account
     /*  check simple account method from constructor: */
     /**
