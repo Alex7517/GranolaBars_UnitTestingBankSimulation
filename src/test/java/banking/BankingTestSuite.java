@@ -207,21 +207,11 @@ public void testCustomerAddSavingsAccount(){
     }
     
     @Test
-    public void testCustomerGetAccountDoesNotExist(){
-        Bank bank = new Bank("TestBank");
-        Customer testCust = new Customer(bank, "Test", "Johnny");
-
-           
-    try{  
-    assertNull(testCust.getAccount("I don't exist"));
-
+    public void testCustomerRemoveAccount(){
+        //This can't be tested at this time
     }
-    catch (RuntimeException e){
-            fail("Method should throw the IllegalArgumentException, but threw "+ e);
-    }
-    }
-    
     //We can't test SortedSet, YtdFees, YtdInterest without knowing its implementation
+    
 
     //SavingAccount class Tests, this will also be testing the Account class due to SavingAccount extending Account
     /*  check simple account method from constructor: */
