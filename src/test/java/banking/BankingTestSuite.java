@@ -189,7 +189,7 @@ public void testCustomerAddSavingsAccount(){
     }
     
     @Test
-    public void testCustomerGetAccount(){
+    public void testCustomerGetAccountStandard(){
         Bank bank = new Bank("TestBank");
         Customer testCust = new Customer(bank, "Test", "Johnny");
 
