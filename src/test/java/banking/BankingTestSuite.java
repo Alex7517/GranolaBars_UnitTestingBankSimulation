@@ -220,6 +220,8 @@ public void testCustomerAddSavingsAccount(){
             fail("Method should throw the IllegalArgumentException, but threw "+ e);
     }
     }
+    
+    //We can't test SortedSet, YtdFees, YtdInterest without knowing its implementation
 
     //SavingAccount class Tests, this will also be testing the Account class due to SavingAccount extending Account
     /*  check simple account method from constructor: */
