@@ -44,6 +44,9 @@ public class BankingTestSuite {
         assertEquals("Should run without throwing an error", expectedResult, actualResult);
     }
 
+    /**
+     * Testing Bank name method works as intended
+     */
     @Test
     public void testBank() {
 
@@ -54,6 +57,9 @@ public class BankingTestSuite {
         assertEquals(" The Bank name equals the expected name. ", result, expectedValue);
     }
 
+    /**
+     * Testing Bank name method for an empty string
+     */
     @Test
     public void testBankEmptyString() {
         String expectedValue = "";
@@ -63,7 +69,7 @@ public class BankingTestSuite {
             fail();
         }
         catch (IllegalArgumentException e) {
-            
+
         }
         catch (RuntimeException e) {
             fail();
@@ -72,6 +78,9 @@ public class BankingTestSuite {
 
     }
 
+    /**
+     * Testing Bank name method for null
+     */
     @Test
     public void testBankNull() {
         String expectedValue = null;
@@ -89,6 +98,9 @@ public class BankingTestSuite {
         }
     }
 
+    /**
+     * Testing addCustomer method works as intended
+     */
     @Test
     public void testAddCustomer() {
         Bank bank = new Bank("Not Wells Fargo");
@@ -106,6 +118,9 @@ public class BankingTestSuite {
 
     }
 
+    /**
+     * Testing addCustomer method arguments are not null
+     */
     @Test
     public void testAddCustomerNull() {
         Bank bank = new Bank("Not Wells Fargo");
@@ -120,6 +135,9 @@ public class BankingTestSuite {
         assertNull(" The passed customer name is a null value. ", returnedLName);
     }
 
+    /**
+     * Testing addCustomer method arguments are not an empty string
+     */
     @Test
     public void testAddCustomerEmpty() {
         Bank bank = new Bank("Not Wells Fargo");
@@ -134,7 +152,9 @@ public class BankingTestSuite {
         assertNull(" The passed customer name is an empty string. ", returnedLName);
     }
 
-    // Just an idea or prototype, we would need to know more about it's implementation
+    /**
+     * Just an idea or prototype, we would need to know more about it's implementation
+     */
     @Test
     public void testGetAllCustomers() {
         SortedSet<Customer> customerList = new TreeSet();
