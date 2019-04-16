@@ -1,8 +1,12 @@
 package banking;
 
 import org.junit.Test;
-
 import static org.junit.Assert.*;
+
+import java.time.LocalDateTime;
+import java.util.SortedSet;
+import java.util.TreeSet;
+
 
 /**
  * This class will contain all the test methods that we will be making for the banking program using JUnit 4
@@ -40,36 +44,137 @@ public class BankingTestSuite {
     }
 
     /**
-     * This will test that the Bank Classes addCustomer method properly creates adds a standard customer with the proper values
+     * Testing Bank name method works as intended
      */
     @Test
-    public final void testBankAddCustomerStandard(){
-        String returnedCustomerID;
-        Customer returnedCustomerObject;
+    public void testBankConstructor() {
 
-        String expectedFirstName = "TESTFirstName";
-        String actualFirstName;
+        String expectedValue = " Not Wells Fargo";
 
-        String expectedLastName = "TESTLastName";
-        String actualLastName;
-
-        try{
-            Bank testBank = new Bank("Test Bank");
-            returnedCustomerID = testBank.addCustomer(expectedLastName,expectedFirstName);
-            returnedCustomerObject = testBank.getCustomer(returnedCustomerID);
-
-            actualFirstName = returnedCustomerObject.getFirstName();
-            actualLastName = returnedCustomerObject.getLastName();
-
-        }
-        catch (RuntimeException e){
-            actualFirstName = e.toString();
-            actualLastName = e.toString();
-        }
-        assertEquals("Check FirstName String", expectedFirstName, actualFirstName);
-        assertEquals("Check LastName String", expectedLastName, actualLastName);
+        Bank bank = new Bank(expectedValue);
+        String result = bank.getNAME();
+        assertEquals(" The Bank name equals the expected name. ", result, expectedValue);
     }
 
+    /**
+     * Testing Bank name method for an empty string
+     */
+    @Test
+    public void testBankConstructorEmptyString() {
+        try {
+            new Bank("");
+            fail(" Shouldn't have gotten to this point. ");
+        }
+        catch (IllegalArgumentException e) {
+            //Passed
+        }
+        catch (RuntimeException e) {
+            fail("Should throw IllegalArgumentException, but threw " + e);
+        }
+
+    }
+
+    /**
+     * Testing Bank name method for null
+     */
+    @Test
+    public void testBankConstructorNull() {
+        try {
+            new Bank(null);
+            fail(" Shouldn't have gotten to this point. ");
+        }
+        catch (IllegalArgumentException e) {
+            //passed
+        }
+        catch (RuntimeException e) {
+            fail("Should throw IllegalArgumentException, but threw " + e);
+        }
+    }
+
+    /**
+     * Testing addCustomer method works as intended
+     */
+    @Test
+    public void testBankAddCustomer() {
+        Bank bank = new Bank("Not Wells Fargo");
+
+        String expFirstName = "Dave";
+        String expLastName = "Dinkins";
+
+        String returnedID = bank.addCustomer(expLastName,expFirstName);
+        Customer returnedCustomer = bank.getCustomer(returnedID);
+
+        String returnedFName = returnedCustomer.getFirstName();
+        assertEquals(" The passed Customer name equals the expected Customer name ", expFirstName, returnedFName);
+
+        String returnedLName = returnedCustomer.getLastName();
+        assertEquals(" The passed Customer last name equals the expected Customer last name. ", expLastName,returnedLName);
+
+    }
+
+    /**
+     * Testing addCustomer method arguments are not null
+     */
+    @Test
+    public void testBankAddCustomerNull() {
+        Bank bank = new Bank("Not Wells Fargo");
+
+        try {
+            bank.addCustomer(null, null);
+            fail(" Shouldn't have gotten to this point. ");
+        }
+        catch (IllegalArgumentException e){
+            //Passed
+        }
+        catch (RuntimeException e){
+            fail("Should throw IllegalArgumentException, but threw " + e);
+        }
+    }
+
+    /**
+     * Testing addCustomer method arguments are not an empty string
+     */
+    @Test
+    public void testBankAddCustomerEmpty() {
+        Bank bank = new Bank("Not Wells Fargo");
+
+        try {
+            bank.addCustomer("", "");
+            fail(" Shouldn't have gotten to this point. ");
+        }
+        catch (IllegalArgumentException e){
+            //Passed
+        }
+        catch (RuntimeException e){
+            fail("Should throw IllegalArgumentException, but threw " + e);
+        }
+    }
+
+    /**
+     * Just an idea or prototype, we would need to know more about it's implementation
+     */
+    @Test
+    public void testBankGetAllCustomers() {
+        //This method can not be properly tested until we know both Customer's and testGetAllCustomers implementation
+        SortedSet<Customer> customerList = new TreeSet();
+        Bank bank = new Bank("Not Wells Fargo");
+        Customer customer1 = new Customer(bank, "Dinkins","Dave");
+        Customer customer2 = new Customer(bank, "Tee","Mister");
+        Customer customer3 = new Customer(bank, "Coleman","Gary");
+
+        customerList.add(customer1);
+        customerList.add(customer2);
+        customerList.add(customer3);
+        SortedSet customerResult = bank.getAllCustomers();
+
+        assertEquals(" The customer list result equals the expected customer list. ", customerResult,customerList);
+    }
+
+    @Test
+    public void testBankGetCustomersAccounts() {
+        //This method can not be properly tested until we know Account, Customer, and testGetAllCustomers implementation
+
+    }
     //Customer class Tests
 
     //SavingAccount class Tests, this will also be testing the Account class due to SavingAccount extending Account
