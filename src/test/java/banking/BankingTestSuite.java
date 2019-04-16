@@ -205,6 +205,21 @@ public void testCustomerAddSavingsAccount(){
             fail("Method should throw the IllegalArgumentException, but threw "+ e);
     }
     }
+    
+    @Test
+    public void testCustomerGetAccountDoesNotExist(){
+        Bank bank = new Bank("TestBank");
+        Customer testCust = new Customer(bank, "Test", "Johnny");
+
+           
+    try{  
+    assertNull(testCust.getAccount("I don't exist"));
+
+    }
+    catch (RuntimeException e){
+            fail("Method should throw the IllegalArgumentException, but threw "+ e);
+    }
+    }
 
     //SavingAccount class Tests, this will also be testing the Account class due to SavingAccount extending Account
     /*  check simple account method from constructor: */
