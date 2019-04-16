@@ -128,7 +128,25 @@ public class BankingTestSuite {
             fail("Method should throw the IllegalArgumentException, but threw "+ e);
         }
     }
-
+    
+    @Test
+    public void testCustomerGetBankConstructor(){
+        Bank passedBank = new Bank("TestBank");
+        Bank expectedBank = passedBank;
+        Customer returnedCustomer = null;
+        
+        
+        try{
+        returnedCustomer = new Customer(passedBank, "Test", "Johnny");
+        Bank returnedBank = returnedCustomer.getBank();
+            
+        assertEquals("Returned Bank should be the same object that was given",returnedBank,expectedBank);
+        }
+        catch(RuntimeException e){
+            fail("Method should return the bank, but threw "+ e);
+        }
+    }
+    
 
 
     //SavingAccount class Tests, this will also be testing the Account class due to SavingAccount extending Account
