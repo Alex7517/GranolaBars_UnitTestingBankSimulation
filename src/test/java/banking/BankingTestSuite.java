@@ -147,7 +147,26 @@ public class BankingTestSuite {
         }
     }
     
+public void testCustomerAddSavingsAccount(){
+        double initBal = 123;
+        String description = "Savings Account";
+        Bank bank = new Bank("TestBank");
+        Customer passedCust = new Customer(bank, "Test", "Johnny");
+        Customer returnedCustomer = null;
+        //SavingsAccount testAcc = new SavingsAccount (testCust, 1000,"Test");
 
+        try{
+        SavingsAccount testAccount = passedCust.addSavingsAccount(initBal, description);
+        double retBalance = testAccount.getBalance();
+        String retDescription = testAccount.getAccountDescription();
+        
+        assertEquals("Returned balance should be the same amount which was given",retBalance,initBal);
+        assertEquals("Returned description should be the same which was given",retDescription,description);
+        }
+        catch(RuntimeException e){
+        fail("Method should return the initial balance and description, but threw "+ e);
+        }
+}
 
     //SavingAccount class Tests, this will also be testing the Account class due to SavingAccount extending Account
     /*  check simple account method from constructor: */
