@@ -188,7 +188,23 @@ public void testCustomerAddSavingsAccount(){
         }
     }
     
+    @Test
+    public void testCustomerGetAccount(){
+        Bank bank = new Bank("TestBank");
+        Customer testCust = new Customer(bank, "Test", "Johnny");
+
+           
+    try{
+    SavingsAccount testAccount = testCust.addSavingsAccount(1000, "My Savings");
+    String accountId = testAccount.getAccountId();
+    SavingsAccount retAccount = (SavingsAccount)testCust.getAccount(accountId);
     
+    assertEquals("Returned account should be the same which was created", retAccount, testAccount);
+    }
+    catch (RuntimeException e){
+            fail("Method should throw the IllegalArgumentException, but threw "+ e);
+    }
+    }
 
     //SavingAccount class Tests, this will also be testing the Account class due to SavingAccount extending Account
     /*  check simple account method from constructor: */
