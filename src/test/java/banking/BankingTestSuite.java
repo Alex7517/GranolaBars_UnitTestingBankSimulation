@@ -1,6 +1,8 @@
 package banking;
 
 import org.junit.Test;
+import org.junit.internal.runners.statements.Fail;
+import static org.junit.Assert.*;
 import java.util.*;
 import java.util.regex.*;
 import java.util.Arrays;
@@ -58,12 +60,15 @@ public class BankingTestSuite {
         String result;
         try {
             Bank bank = new Bank("");
-            result = bank.getNAME();
+            fail();
         }
         catch (IllegalArgumentException e) {
-            result = e.toString();
+            
         }
-        assertEquals(" Setting a Bank name to an empty string isn't acceptable. ", expectedValue,result);
+        catch (RuntimeException e) {
+            fail();
+            System.out.println(" Shouldn't have gotten to this point. ");
+        }
 
     }
 
@@ -73,12 +78,15 @@ public class BankingTestSuite {
         String result;
         try {
             Bank bank = new Bank(null);
-            result = bank.getNAME();
+            fail();
         }
         catch (IllegalArgumentException e) {
-            result = e.toString();
+
         }
-        assertEquals(" Setting a Bank name to an empty string isn't acceptable. ", expectedValue,result);
+        catch (RuntimeException e) {
+            fail();
+            System.out.println(" Shouldn't have gotten to this point. ");
+        }
     }
 
     @Test
@@ -107,7 +115,7 @@ public class BankingTestSuite {
         String returnedID = bank.addCustomer(null, "Dave");
         Customer customer = bank.getCustomer(returnedID);
         String returnedFName = customer.getFirstName();
-        assertNull(" The passed Customer name . ", returnedFName);
+        assertNull(" The passed Customer name. ", returnedFName);
         String returnedLName = customer.getLastName();
         assertNull(" The passed customer name is a null value. ", returnedLName);
     }
