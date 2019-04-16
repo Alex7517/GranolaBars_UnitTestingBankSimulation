@@ -1,12 +1,10 @@
 package banking;
 
 import org.junit.Test;
-import org.junit.internal.runners.statements.Fail;
 import static org.junit.Assert.*;
+
+import java.time.LocalDateTime;
 import java.util.*;
-import java.util.regex.*;
-import java.util.Arrays;
-import static org.junit.Assert.*;
 
 
 /**
@@ -52,7 +50,7 @@ public class BankingTestSuite {
 
         String expectedValue = " Not Wells Fargo";
 
-        Bank bank = new Bank("Not Wells Fargo");
+        Bank bank = new Bank(expectedValue);
         String result = bank.getNAME();
         assertEquals(" The Bank name equals the expected name. ", result, expectedValue);
     }
@@ -62,18 +60,15 @@ public class BankingTestSuite {
      */
     @Test
     public void testBankEmptyString() {
-        String expectedValue = "";
-        String result;
         try {
-            Bank bank = new Bank("");
-            fail();
+            new Bank("");
+            fail(" Shouldn't have gotten to this point. ");
         }
         catch (IllegalArgumentException e) {
-
+            //Passed
         }
         catch (RuntimeException e) {
-            fail();
-            System.out.println(" Shouldn't have gotten to this point. ");
+            fail("Should throw IllegalArgumentException, but threw " + e);
         }
 
     }
@@ -83,18 +78,15 @@ public class BankingTestSuite {
      */
     @Test
     public void testBankNull() {
-        String expectedValue = null;
-        String result;
         try {
-            Bank bank = new Bank(null);
-            fail();
+            new Bank(null);
+            fail(" Shouldn't have gotten to this point. ");
         }
         catch (IllegalArgumentException e) {
-
+            //passed
         }
         catch (RuntimeException e) {
-            fail();
-            System.out.println(" Shouldn't have gotten to this point. ");
+            fail("Should throw IllegalArgumentException, but threw " + e);
         }
     }
 
@@ -108,12 +100,13 @@ public class BankingTestSuite {
         String expFirstName = "Dave";
         String expLastName = "Dinkins";
 
-        String returnedID = bank.addCustomer("Dinkins","Dave");
-        Customer customer = bank.getCustomer(returnedID);
-        String returnedFName = customer.getFirstName();
+        String returnedID = bank.addCustomer(expLastName,expFirstName);
+        Customer returnedCustomer = bank.getCustomer(returnedID);
+
+        String returnedFName = returnedCustomer.getFirstName();
         assertEquals(" The passed Customer name equals the expected Customer name ", expFirstName, returnedFName);
 
-        String returnedLName = customer.getLastName();
+        String returnedLName = returnedCustomer.getLastName();
         assertEquals(" The passed Customer last name equals the expected Customer last name. ", expLastName,returnedLName);
 
     }
@@ -124,15 +117,17 @@ public class BankingTestSuite {
     @Test
     public void testAddCustomerNull() {
         Bank bank = new Bank("Not Wells Fargo");
-        String expFirstName = "Dave";
-        String expLastName = "Dinkins";
 
-        String returnedID = bank.addCustomer(null, "Dave");
-        Customer customer = bank.getCustomer(returnedID);
-        String returnedFName = customer.getFirstName();
-        assertNull(" The passed Customer name. ", returnedFName);
-        String returnedLName = customer.getLastName();
-        assertNull(" The passed customer name is a null value. ", returnedLName);
+        try {
+            bank.addCustomer(null, null);
+            fail(" Shouldn't have gotten to this point. ");
+        }
+        catch (IllegalArgumentException e){
+            //Passed
+        }
+        catch (RuntimeException e){
+            fail("Should throw IllegalArgumentException, but threw " + e);
+        }
     }
 
     /**
@@ -141,15 +136,17 @@ public class BankingTestSuite {
     @Test
     public void testAddCustomerEmpty() {
         Bank bank = new Bank("Not Wells Fargo");
-        String expFirstName = "Dave";
-        String expLastName = "Dinkins";
 
-        String returnedID = bank.addCustomer("", "Dave");
-        Customer customer = bank.getCustomer(returnedID);
-        String returnedFName = customer.getFirstName();
-        assertNull(" The passed Customer name . ", returnedFName);
-        String returnedLName = customer.getLastName();
-        assertNull(" The passed customer name is an empty string. ", returnedLName);
+        try {
+            bank.addCustomer("", "");
+            fail(" Shouldn't have gotten to this point. ");
+        }
+        catch (IllegalArgumentException e){
+            //Passed
+        }
+        catch (RuntimeException e){
+            fail("Should throw IllegalArgumentException, but threw " + e);
+        }
     }
 
     /**
@@ -157,6 +154,7 @@ public class BankingTestSuite {
      */
     @Test
     public void testGetAllCustomers() {
+        //This method can not be properly tested until we know both Customer's and testGetAllCustomers implementation
         SortedSet<Customer> customerList = new TreeSet();
         Bank bank = new Bank("Not Wells Fargo");
         Customer customer1 = new Customer(bank, "Dinkins","Dave");
@@ -173,7 +171,7 @@ public class BankingTestSuite {
 
     @Test
     public void testGetCustomersAccounts() {
-        List<Account> list = new ArrayList<>();
+        //This method can not be properly tested until we know Account, Customer, and testGetAllCustomers implementation
 
     }
     //Customer class Tests
