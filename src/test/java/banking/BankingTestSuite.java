@@ -74,6 +74,63 @@ public class BankingTestSuite {
 
     //Customer class Tests
 
+    /**
+     * Test that the Customer constructor creates a proper object with standard args
+     */
+    @Test
+    public void testCustomerConstructorStandard(){
+        Bank passedBank = new Bank("TestBank");
+        Bank expectedBank = passedBank;
+        Bank returnedBank = null;
+
+        String passedLastName = "Test";
+        String expectedLastName = passedLastName;
+        String returnedLastName = null;
+
+        String passedFirstName = "Jonny";
+        String expectedFirstName = passedLastName;
+        String returnedFirstName = null;
+
+        Customer returnedCustomer = null;
+
+        try{
+            returnedCustomer = new Customer(passedBank,passedLastName,passedFirstName);
+            returnedBank = returnedCustomer.getBank();
+            returnedLastName = returnedCustomer.getLastName();
+            returnedFirstName = returnedCustomer.getFirstName();
+
+            assertEquals("Returned Bank should be the same object that was given",returnedBank,expectedBank);
+            assertEquals("Returned Last Name should be the same as what was given",returnedLastName,expectedLastName);
+            assertEquals("Returned First Name should be the same as what was given",returnedFirstName,expectedFirstName);
+        }
+        catch (RuntimeException e){
+            fail("Method should never throw exception, but threw "+ e);
+        }
+    }
+
+    /**
+     * Tests that the Customer constructor throws a illegal Arg exception when passed nulls
+     */
+    @Test
+    public void testCustomerConstructorNulls(){
+        Bank passedBank = null;
+        String passedLastName = null;
+        String passedFirstName = null;
+
+        try{
+            new Customer(passedBank,passedFirstName,passedFirstName);
+            fail("Method should throw the IllegalArgumentException, but instead created an object still");
+        }
+        catch (IllegalArgumentException e){
+            //Passed the Test
+        }
+        catch (RuntimeException e){
+            fail("Method should throw the IllegalArgumentException, but threw "+ e);
+        }
+    }
+
+
+
     //SavingAccount class Tests, this will also be testing the Account class due to SavingAccount extending Account
     /*  check simple account method from constructor: */
     /**
