@@ -13,7 +13,7 @@ import java.util.TreeSet;
  *
  */
 public class BankingTestSuite {
-    //Bank class Tests
+    //***********************Bank class Tests***********************
 
     /**
      * This is an example for a test
@@ -175,7 +175,7 @@ public class BankingTestSuite {
         //This method can not be properly tested until we know Account, Customer, and testGetAllCustomers implementation
 
     }
-    //Customer class Tests
+    //***********************Customer class Tests***********************
 
     //SavingAccount class Tests, this will also be testing the Account class due to SavingAccount extending Account
     /*  check simple account method from constructor: */
@@ -499,7 +499,7 @@ public class BankingTestSuite {
                     "Actual: "+SavingsAccount.getDefaultInterestRate()+"\n"+"");
     }
 
-    //Transaction Class Tests
+    //***********************Transaction Class Tests***********************
 
     /**
      * This will test that the transaction constructor properly creates a object with valid passed arguments
