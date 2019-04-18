@@ -1,6 +1,7 @@
 package banking;
 
 import org.junit.Test;
+
 import static org.junit.Assert.*;
 
 import java.time.LocalDateTime;
@@ -13,7 +14,7 @@ import java.util.TreeSet;
  *
  */
 public class BankingTestSuite {
-    //Bank class Tests
+    //***********************Bank class Tests***********************
 
     /**
      * This is an example for a test
@@ -175,7 +176,146 @@ public class BankingTestSuite {
         //This method can not be properly tested until we know Account, Customer, and testGetAllCustomers implementation
 
     }
-    //Customer class Tests
+    //***********************Customer class Tests***********************
+
+    /**
+     * Test that the Customer constructor creates a proper object with standard args
+     */
+    @Test
+    public void testCustomerConstructorStandard(){
+        Bank passedBank = new Bank("TestBank");
+        Bank expectedBank = passedBank;
+        Bank returnedBank = null;
+
+        String passedLastName = "Test";
+        String expectedLastName = passedLastName;
+        String returnedLastName = null;
+
+        String passedFirstName = "Jonny";
+        String expectedFirstName = passedLastName;
+        String returnedFirstName = null;
+
+        Customer returnedCustomer = null;
+
+        try{
+            returnedCustomer = new Customer(passedBank,passedLastName,passedFirstName);
+            returnedBank = returnedCustomer.getBank();
+            returnedLastName = returnedCustomer.getLastName();
+            returnedFirstName = returnedCustomer.getFirstName();
+
+            assertEquals("Returned Bank should be the same object that was given",returnedBank,expectedBank);
+            assertEquals("Returned Last Name should be the same as what was given",returnedLastName,expectedLastName);
+            assertEquals("Returned First Name should be the same as what was given",returnedFirstName,expectedFirstName);
+        }
+        catch (RuntimeException e){
+            fail("Method should never throw exception, but threw "+ e);
+        }
+    }
+
+    /**
+     * Tests that the Customer constructor throws a illegal Arg exception when passed nulls
+     */
+    @Test
+    public void testCustomerConstructorNulls(){
+        Bank passedBank = null;
+        String passedLastName = null;
+        String passedFirstName = null;
+
+        try{
+            new Customer(passedBank,passedFirstName,passedFirstName);
+            fail("Method should throw the IllegalArgumentException, but instead created an object still");
+        }
+        catch (IllegalArgumentException e){
+            //Passed the Test
+        }
+        catch (RuntimeException e){
+            fail("Method should throw the IllegalArgumentException, but threw "+ e);
+        }
+    }
+
+    @Test
+    public void testCustomerGetBankConstructor(){
+        Bank passedBank = new Bank("TestBank");
+        Bank expectedBank = passedBank;
+        Customer returnedCustomer = null;
+
+
+        try{
+        returnedCustomer = new Customer(passedBank, "Test", "Johnny");
+        Bank returnedBank = returnedCustomer.getBank();
+
+        assertEquals("Returned Bank should be the same object that was given",returnedBank,expectedBank);
+        }
+        catch(RuntimeException e){
+            fail("Method should return the bank, but threw "+ e);
+        }
+    }
+
+public void testCustomerAddSavingsAccount(){
+        double initBal = 123;
+        String description = "Savings Account";
+        Bank bank = new Bank("TestBank");
+        Customer passedCust = new Customer(bank, "Test", "Johnny");
+        Customer returnedCustomer = null;
+        //SavingsAccount testAcc = new SavingsAccount (testCust, 1000,"Test");
+
+        try{
+        SavingsAccount testAccount = passedCust.addSavingsAccount(initBal, description);
+        double retBalance = testAccount.getBalance();
+        String retDescription = testAccount.getAccountDescription();
+
+        assertEquals("Returned balance should be the same amount which was given",retBalance,initBal);
+        assertEquals("Returned description should be the same which was given",retDescription,description);
+        }
+        catch(RuntimeException e){
+        fail("Method should return the initial balance and description, but threw "+ e);
+        }
+}
+
+@Test
+    public void testCustomerAddSavingsAccountNull(){
+        Double initBal = null;
+        String description = null;
+        Bank bank = new Bank("TestBank");
+        Customer passedCust = new Customer(bank, "Test", "Johnny");
+        Customer returnedCustomer = null;
+
+        try{
+            passedCust.addSavingsAccount(initBal, description);
+            fail("Method should throw the IllegalArgumentException, but instead created an object still");
+        }
+        catch (IllegalArgumentException e){
+            //Passed the Test
+        }
+        catch (RuntimeException e){
+            fail("Method should throw the IllegalArgumentException, but threw "+ e);
+        }
+    }
+
+    @Test
+    public void testCustomerGetAccountStandard(){
+        Bank bank = new Bank("TestBank");
+        Customer testCust = new Customer(bank, "Test", "Johnny");
+
+
+    try{
+    SavingsAccount testAccount = testCust.addSavingsAccount(1000, "My Savings");
+    String accountId = testAccount.getAccountId();
+    SavingsAccount retAccount = (SavingsAccount)testCust.getAccount(accountId);
+
+    assertEquals("Returned account should be the same which was created", retAccount, testAccount);
+    }
+    catch (RuntimeException e){
+            fail("Method should throw the IllegalArgumentException, but threw "+ e);
+    }
+    }
+
+    @Test
+    public void testCustomerRemoveAccount(){
+        //This can't be tested at this time
+    }
+    //We can't test SortedSet, YtdFees, YtdInterest without knowing its implementation
+
 
     //SavingAccount class Tests, this will also be testing the Account class due to SavingAccount extending Account
     /*  check simple account method from constructor: */
@@ -499,7 +639,7 @@ public class BankingTestSuite {
                     "Actual: "+SavingsAccount.getDefaultInterestRate()+"\n"+"");
     }
 
-    //Transaction Class Tests
+    //***********************Transaction Class Tests***********************
 
     /**
      * This will test that the transaction constructor properly creates a object with valid passed arguments
